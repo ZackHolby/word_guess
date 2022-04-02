@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Word Guess
 
 A new Flutter project.
