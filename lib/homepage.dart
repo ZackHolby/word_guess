@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         TextField(
           controller: _textController,
           decoration: InputDecoration(
-              hintText: 'Hello there holby',
+              hintText: 'Hello there BOT!',
               border: const OutlineInputBorder(),
               suffixIcon: IconButton(
                   onPressed: () {
