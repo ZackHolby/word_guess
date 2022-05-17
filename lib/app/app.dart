@@ -8,7 +8,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Wordle Demo',
       theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.black),
-      home: const WordleScreen(),
+      home: const GuesserScreen(),
     );
   }
 }
