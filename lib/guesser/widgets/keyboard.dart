@@ -8,14 +8,18 @@ final List<String> dailyWordList =
     wordLists[Random().nextInt(wordLists.length)];
 
 List<String> _keyboardLetters = getDailyLetters(dailyWordList);
-//ADD DELETE AND ENTER
+const _keyboardActions = ['SHUFFLE', 'ENTER', 'DEL'];
 
-class Keyboard extends StatelessWidget {
-  const Keyboard({
+class Keyboard extends StatefulWidget {
+  List<String> keyboardLetters;
+
+  Keyboard({
     Key? key,
+    required this.keyboardLetters,
     required this.onKeyTapped,
     required this.onDeleteTapped,
     required this.onEnterTapped,
+    required this.onShuffleTapped,
   }) : super(key: key);
 
   final void Function(String) onKeyTapped;
@@ -24,17 +28,45 @@ class Keyboard extends StatelessWidget {
 
   final VoidCallback onEnterTapped;
 
+  final VoidCallback onShuffleTapped;
+
+  @override
+  _KeyboardState createState() => _KeyboardState();
+}
+
+class _KeyboardState extends State<Keyboard> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _keyboardLetters.map((letter) {
-          return _KeyboardButton(
-            onTap: () => onKeyTapped(letter),
-            letter: letter,
-            backgroundColor: Colors.grey,
-          );
-        }).toList());
+    return Column(
+      children: [
+        Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: widget.keyboardLetters.map((letter) {
+              return _KeyboardButton(
+                onTap: () => widget.onKeyTapped(letter),
+                letter: letter,
+                backgroundColor: Colors.grey,
+              );
+            }).toList()),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _keyboardActions.map((letter) {
+            if ((letter) == 'DEL') {
+              return _KeyboardButton.delete(onTap: widget.onDeleteTapped);
+            } else if ((letter) == 'ENTER') {
+              return _KeyboardButton.enter(onTap: widget.onEnterTapped);
+            } else if ((letter) == 'SHUFFLE') {
+              return _KeyboardButton.shuffle(onTap: widget.onShuffleTapped);
+            }
+            return _KeyboardButton(
+              onTap: () => widget.onKeyTapped(letter),
+              letter: letter,
+              backgroundColor: Colors.grey,
+            );
+          }).toList(),
+        )
+      ],
+    );
   }
 }
 
@@ -61,7 +93,16 @@ class _KeyboardButton extends StatelessWidget {
           width: 56,
           onTap: onTap,
           backgroundColor: Colors.grey,
-          letter: 'ENTERd');
+          letter: 'ENTER');
+
+  factory _KeyboardButton.shuffle({
+    required VoidCallback onTap,
+  }) =>
+      _KeyboardButton(
+          width: 56,
+          onTap: onTap,
+          backgroundColor: Colors.grey,
+          letter: 'SHUFFLE');
 
   final double height;
 
@@ -101,18 +142,4 @@ class _KeyboardButton extends StatelessWidget {
       ),
     );
   }
-}
-
-List<String> getDailyLetters(List<String> dailyWords) {
-  List<String> dailyLetters = [];
-  for (String word in dailyWords) {
-    List<String> wordSplit = word.split('');
-    for (String char in wordSplit) {
-      if (!dailyLetters.contains(char)) {
-        dailyLetters.add(char);
-      }
-    }
-  }
-
-  return dailyLetters;
 }
