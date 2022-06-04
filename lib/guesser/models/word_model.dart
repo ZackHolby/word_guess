@@ -31,6 +31,10 @@ class Word extends Equatable {
     }
   }
 
+  List<Letter> getCurrentWord() {
+    return letters;
+  }
+
   @override
   List<Object?> get props => [letters];
 }

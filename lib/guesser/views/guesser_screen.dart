@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:word_guess/guesser/data/word_list.dart';
@@ -57,7 +58,7 @@ class _GuessScreenState extends State<GuessScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Board(board: _board),
-          const SizedBox(height: 150),
+          const SizedBox(height: 10),
           Keyboard(
               keyboardLetters: _keyboardLetters,
               onKeyTapped: _onKeyTapped,
@@ -85,13 +86,15 @@ class _GuessScreenState extends State<GuessScreen> {
     if (_gameStatus == GameStatus.playing && _currentWord != null) {
       _gameStatus = GameStatus.submitting;
 
-      //implement
+      String submittedWord =
+          _currentWord.getCurrentWord().map((e) => e.val).join();
+      print(submittedWord);
+      _gameStatus = GameStatus.playing;
     }
   }
 
   void _onShuffleTapped() {
     if (_gameStatus == GameStatus.playing) {
-      print(_keyboardLetters);
       setState(() => _keyboardLetters.shuffle());
     }
   }
@@ -102,8 +105,8 @@ List<String> getDailyLetters(List<String> dailyWords) {
   for (String word in dailyWords) {
     List<String> wordSplit = word.split('');
     for (String char in wordSplit) {
-      if (!dailyLetters.contains(char)) {
-        dailyLetters.add(char);
+      if (!dailyLetters.contains(char.toUpperCase())) {
+        dailyLetters.add(char.toUpperCase());
       }
     }
   }

@@ -11,16 +11,18 @@ class Board extends StatelessWidget {
   final List<Word> board;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Column(
       children: board
-      .map(
-        (word) => Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: word.letters.map((letter) => BoardTile(letter: letter))
+          .map(
+            (word) => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: word.letters
+                  .map((letter) => BoardTile(letter: letter))
+                  .toList(),
+            ),
+          )
           .toList(),
-      ),
-      ).toList(),
-      );
+    );
   }
 }
