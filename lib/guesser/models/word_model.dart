@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:word_guess/guesser/guesser.dart';
 import 'package:word_guess/guesser/models/letter_model.dart';
 
-enum LetterStatus { initial, correct }
+enum WordStatus { initial, correct }
 
 class Word extends Equatable {
   const Word({

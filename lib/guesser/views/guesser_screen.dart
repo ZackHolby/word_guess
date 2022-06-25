@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:word_guess/guesser/data/word_list.dart';
 import 'package:word_guess/guesser/models/letter_model.dart';
 import 'package:word_guess/guesser/models/word_model.dart';
+import 'package:word_guess/guesser/widgets/answer_board.dart';
 import 'package:word_guess/guesser/widgets/board.dart';
 import 'package:word_guess/guesser/widgets/keyboard.dart';
 
@@ -18,7 +19,7 @@ class GuessScreen extends StatefulWidget {
   _GuessScreenState createState() => _GuessScreenState();
 }
 
-final List<String> dailyWordList =
+final List<String> _dailyWordList =
     wordLists[Random().nextInt(wordLists.length)];
 
 List<String> _keyboardLetters = getDailyLetters(dailyWordList);
@@ -36,7 +37,7 @@ class _GuessScreenState extends State<GuessScreen> {
 
   Word get _currentWord => _board[0];
 
-  List<String> _solution = dailyWordList;
+  List<String> _solution = _dailyWordList;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +58,7 @@ class _GuessScreenState extends State<GuessScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Answerboard(dailyWordList: _dailyWordList),
           Board(board: _board),
           const SizedBox(height: 10),
           Keyboard(
