@@ -18,14 +18,7 @@ class Answerboard extends StatefulWidget {
 class _AnswerboardState extends State<Answerboard> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: dailyWordList
-          .map(
-            (word) => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
-          )
-          .toList(),
-    );
+    return new Row(
+        children: dailyWordList.map((item) => new Text(item)).toList());
   }
 }
